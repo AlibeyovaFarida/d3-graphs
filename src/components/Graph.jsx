@@ -8,6 +8,9 @@ const Graph = () => {
   const [tooltipStyle, setTooltipStyle] = useState({
     visibility: "hidden",
     opacity: 0,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   });
 
   useEffect(() => {
@@ -41,20 +44,20 @@ const Graph = () => {
     // ];
 
     const nodesData = [
-      { id: 0, x: 100, y: 500, img: "https://svgsilh.com/svg/278845.svg" },
-      { id: 1, x: 100, y: 100, img: "https://svgsilh.com/svg/37828.svg" },
-      { id: 2, x: 100, y: 100, img: "https://svgsilh.com/svg/1390338.svg" },
-      { id: 3, x: 100, y: 100, img: "https://svgsilh.com/svg_v2/1801287.svg" },
-      { id: 4, x: 100, y: 100, img: "https://svgsilh.com/svg/2029797.svg" },
-      { id: 5, x: 100, y: 100, img: "https://svgsilh.com/svg/1296104.svg" },
-      { id: 6, x: 100, y: 100, img: "https://svgsilh.com/svg_v2/3241281.svg" },
-      { id: 7, x: 100, y: 100, img: "https://svgsilh.com/svg/2798804.svg" },
-      { id: 8, x: 100, y: 100, img: "https://svgsilh.com/svg_v2/147901.svg" },
-      { id: 9, x: 100, y: 100, img: "https://svgsilh.com/svg_v2/3245088.svg" },
-      { id: 10, x: 100, y: 100, img: "https://cdn-icons-png.flaticon.com/512/6536/6536122.png" },
-      { id: 11, x: 100, y: 100, img: "https://cdn-icons-png.flaticon.com/512/616/616430.png" },
-      { id: 12, x: 100, y: 100, img: "https://cdn-icons-png.flaticon.com/512/235/235349.png" },
-      { id: 13, x: 100, y: 100, img: "https://icons.iconarchive.com/icons/google/noto-emoji-animals-nature/512/22221-cat-icon.png" },
+      { id: 0, x: 100, y: 500, img: "https://svgsilh.com/svg/278845.svg", name: "Cat 1" },
+      { id: 1, x: 100, y: 100, img: "https://svgsilh.com/svg/37828.svg", name: "Cat 1" },
+      { id: 2, x: 100, y: 100, img: "https://svgsilh.com/svg/1390338.svg", name: "Cat 1" },
+      { id: 3, x: 100, y: 100, img: "https://svgsilh.com/svg_v2/1801287.svg", name: "Cat 1" },
+      { id: 4, x: 100, y: 100, img: "https://svgsilh.com/svg/2029797.svg", name: "Cat 1" },
+      { id: 5, x: 100, y: 100, img: "https://svgsilh.com/svg/1296104.svg", name: "Cat 1" },
+      { id: 6, x: 100, y: 100, img: "https://svgsilh.com/svg_v2/3241281.svg", name: "Cat 1" },
+      { id: 7, x: 100, y: 100, img: "https://svgsilh.com/svg/2798804.svg", name: "Cat 1" },
+      { id: 8, x: 100, y: 100, img: "https://svgsilh.com/svg_v2/147901.svg", name: "Cat 1" },
+      { id: 9, x: 100, y: 100, img: "https://svgsilh.com/svg_v2/3245088.svg", name: "Cat 1" },
+      { id: 10, x: 100, y: 100, img: "https://cdn-icons-png.flaticon.com/512/6536/6536122.png", name: "Cat 1" },
+      { id: 11, x: 100, y: 100, img: "https://cdn-icons-png.flaticon.com/512/616/616430.png", name: "Cat 1" },
+      { id: 12, x: 100, y: 100, img: "https://cdn-icons-png.flaticon.com/512/235/235349.png", name: "Cat 1" },
+      { id: 13, x: 100, y: 100, img: "https://icons.iconarchive.com/icons/google/noto-emoji-animals-nature/512/22221-cat-icon.png", name: "Cat 1" },
     ];
 
     const links = [
@@ -121,6 +124,12 @@ const Graph = () => {
       .attr("width", 32)
       .attr("height", 32);
 
+    node.append("svg:text").attr({
+      class: "node-label",
+      dy: 24,
+      "text-anchor": "middle",
+    })
+    .text(d => d.name);
     function ticked() {
       link
         .attr("x1", (d) => d.source.x)
@@ -162,37 +171,36 @@ const Graph = () => {
     // });
 
     // Handle node click events
-    // svg.selectAll(".node").on("click", function (event, d) {
-    //   const nodeElement = d3.select(this);
-    //   const currentColor = nodeElement.style("fill");
-    //   if (currentColor === "rgb(255, 165, 0)") {
-    //     nodeElement.style("fill", "green");
-    //   } else if (currentColor === "rgb(0, 128, 0)") {
-    //     nodeElement.style("fill", fill[Math.floor((d.in + 1) / 3)]);
-    //   } else {
-    //     nodeElement.style("fill", "orange");
-    //   }
-    //   event.stopPropagation();
-    // });
+    svg.selectAll(".node").on("click", function (event, d) {
+      const nodeElement = d3.select("image");
+      
+      // const currentColor = nodeElement.style("fill");
+      // if (currentColor === "rgb(255, 165, 0)") {
+      //   nodeElement.style("fill", "green");
+      // } else if (currentColor === "rgb(0, 128, 0)") {
+      //   nodeElement.style("fill", fill[Math.floor((d.in + 1) / 3)]);
+      // } else {
+      //   nodeElement.style("fill", "orange");
+      // }
+      console.log(nodeElement);
+      event.stopPropagation();
+    });
 
-    // svg
-    //   .selectAll(".node")
-    //   .on("mouseover", function (event, d) {
-    //     setTooltipContent(
-    //       d.in === d.out
-    //         ? `User ${d.userID} ${d.in} conns`
-    //         : `User ${d.userID} ${d.in} in, ${d.out} out`
-    //     );
-    //     setTooltipStyle({
-    //       visibility: "visible",
-    //       opacity: 0.9,
-    //       left: `${event.pageX + 15}px`,
-    //       top: `${event.pageY - 5 }px`,
-    //     });
-    //   })
-    //   .on("mouseout", () => {
-    //     setTooltipStyle({ visibility: "hidden", opacity: 0 });
-    //   });
+    svg
+      .selectAll(".node")
+      .on("mouseover", function (event, d) {
+        setTooltipContent("miav");
+        setTooltipStyle(prevStyle => ({
+          ...prevStyle,
+          visibility: "visible",
+          opacity: 0.9,
+          left: `${event.pageX + 15 }px`,
+          top: `${event.pageY + 15 }px`,
+        }));
+      })
+      .on("mouseout", () => {
+        setTooltipStyle(prevStyle => ({ ...prevStyle, visibility: "hidden", opacity: 0 }));
+      });
   }, []);
 
   return (
